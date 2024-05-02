@@ -1,6 +1,8 @@
-module example
+module term-gpt
 
-go 1.18
+go 1.21
+
+toolchain go1.22.1
 
 require github.com/henomis/lingoose v0.1.2
 

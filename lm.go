@@ -19,7 +19,7 @@ func main() {
 
     for {
         // Prompt
-        fmt.Print("Ask: ")
+        fmt.Print("# ")
         userInput, err := reader.ReadString('\n')
         if err != nil {
             fmt.Println("Error reading input: ", err)
@@ -40,6 +40,8 @@ func main() {
 			    thread.NewTextContent(userInput),
 		    ),
 	    )
+
+        fmt.Println("-----------")
 
         // Generate OpenAI response
         err = openai.New().Generate(context.Background(), myThread)
