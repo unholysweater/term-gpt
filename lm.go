@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
-    "bufio"
-    "os"
+	"bufio"
+	"os"
 
 	"github.com/henomis/lingoose/llm/openai"
 	"github.com/henomis/lingoose/thread"
