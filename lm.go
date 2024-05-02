@@ -11,30 +11,28 @@ import (
 )
 
 func main() {
-    // Create a new buffered reader from standard input
+    // Create the thread on session start
     reader := bufio.NewReader(os.Stdin)
-    
-    // Create initial thread instance outside of the prompt loop
     myThread := thread.New()
 
     for {
-        // Prompt
+        // Prompt for input
         fmt.Print("# ")
         userInput, err := reader.ReadString('\n')
         if err != nil {
             fmt.Println("Error reading input: ", err)
-            continue // Skip to next iteration of the loop
+            continue
         }
 
         // Trim newline char from the input
         userInput = userInput[:len(userInput)-1]
 
-        // Continue until exit is entered
+        // Continue until exit is entered (alternatively just use C-c)
         if userInput == "exit" {
             break
         }
-        
-        // Add message to the already initialized thread
+       
+        // Append message to thread object
 	    myThread.AddMessage(
 		    thread.NewUserMessage().AddContent(
 			    thread.NewTextContent(userInput),
@@ -43,14 +41,13 @@ func main() {
 
         fmt.Println("-----------")
 
-        // Generate OpenAI response
+        // Generate OpenAI response, append to thread object
         err = openai.New().Generate(context.Background(), myThread)
 	    if err != nil {
             fmt.Println("Error generating response: ", err)
-            continue // Skip to next iteration of the loop
+            continue
 	    }
 
-        // Print response
 	    fmt.Println(myThread)
     }
 }
